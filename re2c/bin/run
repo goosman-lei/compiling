@@ -6,7 +6,7 @@ function real_path() {
 SCRIPT_PATH=$( cd `dirname ${BASH_SOURCE[0]}` && pwd )
 OUTPUT_PATH=$( real_path $SCRIPT_PATH/../output )
 
-COMMAND="./a.out"
+COMMAND="$OUTPUT_PATH/a.out"
 idx=0; for arg in $@ ; do idx=$(( $idx + 1 )); [ $idx -gt 1 ] && COMMAND="$COMMAND $arg"; done
 
 re2c -o $OUTPUT_PATH/example.c "$1"
