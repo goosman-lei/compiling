@@ -1,4 +1,4 @@
-VPATH=.:src:output
+VPATH=src:output
 OUTPUT_PATH=output
 BIN_PATH=bin
 
@@ -13,23 +13,26 @@ COMPILE_COMMAND=$(CC) $(COMPILE_CFLAGS)
 install: a.out
 	cp $< $(BIN_PATH)/a.out
 
-a.out: main.o prog.o slp.o util.o func.o
-	$(LINK_COMMAND) $^ -o $(OUTPUT_PATH)/$@
+$(OUTPUT_PATH)/a.out: $(OUTPUT_PATH)/main.o $(OUTPUT_PATH)/prog.o $(OUTPUT_PATH)/slp.o $(OUTPUT_PATH)/util.o $(OUTPUT_PATH)/func.o $(OUTPUT_PATH)/table.o
+	$(LINK_COMMAND) $^ -o $@
 
-main.o: main.c slp.h util.h func.h
-	$(COMPILE_COMMAND) $< -o $(OUTPUT_PATH)/$@
+$(OUTPUT_PATH)/main.o: main.c slp.h util.h func.h table.h
+	$(COMPILE_COMMAND) $< -o $@
 
-func.o: func.c func.h
-	$(COMPILE_COMMAND) $< -o $(OUTPUT_PATH)/$@
+$(OUTPUT_PATH)/table.o: table.c table.h
+	$(COMPILE_COMMAND) $< -o $@
 
-prog.o: prog.c prog.h
-	$(COMPILE_COMMAND) $< -o $(OUTPUT_PATH)/$@
+$(OUTPUT_PATH)/func.o: func.c func.h
+	$(COMPILE_COMMAND) $< -o $@
 
-slp.o: slp.c slp.h
-	$(COMPILE_COMMAND) $< -o $(OUTPUT_PATH)/$@
+$(OUTPUT_PATH)/prog.o: prog.c prog.h
+	$(COMPILE_COMMAND) $< -o $@
 
-util.o: util.c util.h
-	$(COMPILE_COMMAND) $< -o $(OUTPUT_PATH)/$@
+$(OUTPUT_PATH)/slp.o: slp.c slp.h
+	$(COMPILE_COMMAND) $< -o $@
+
+$(OUTPUT_PATH)/util.o: util.c util.h
+	$(COMPILE_COMMAND) $< -o $@
 
 clean:
-	rm -f a.out util.o prog.o slp.o main.o func.o
+	rm -f output/*

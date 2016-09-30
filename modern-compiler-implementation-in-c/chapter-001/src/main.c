@@ -5,7 +5,7 @@
 int main(int argc, char **argv) {
     A_stm p = prog();
 
-    parse_stmt(p);
+    ns_init();
 
-    printf("\n");
+    parse_stmt(p);
 }
