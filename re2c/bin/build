@@ -1,0 +1,10 @@
+#!/bin/bash
+function real_path() {
+    [ ! -d "$1" ] && mkdir -p "$1"
+    echo $( cd "$1" && pwd )
+}
+SCRIPT_PATH=$( cd `dirname ${BASH_SOURCE[0]}` && pwd )
+OUTPUT_PATH=$( real_path $SCRIPT_PATH/../output )
+
+re2c -o $OUTPUT_PATH/example.cc "$1"
+g++ --std=c++11 $OUTPUT_PATH/example.cc -o $OUTPUT_PATH/a.out
